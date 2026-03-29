@@ -27,7 +27,7 @@
 
 | Risk | Mitigation in this repo |
 |------|-------------------------|
-| Slow or variable page loads on `images.nasa.gov` | Higher timeouts in config (`timeout`, `navigationTimeout`, `actionTimeout`); UI steps wait for containers and details with explicit timeouts where needed. |
+| Slow or variable page loads on `images.nasa.gov` | Higher timeouts in config (`timeout`, `navigationTimeout`, `actionTimeout`) as some of the elements taking long time to become visible; So, UI steps wait for containers and details with explicit timeouts where needed. |
 | Transient network or 5xx errors | **Retries:** 1 locally, **2 on CI** (`retries` in `playwright.config.ts`). |
 | Hard failures to debug | **Screenshots on failure**; use `npm run test:ui-mode` for step-through debugging. |
 | **UI vs API “first result” mismatch** | API and UI may not use identical sort/ranking; the integration test compares the **first** API hit to the **first** UI result after the same keyword + image filter. If ordering diverges, this test can fail even when both sides are “correct.” Mitigation: normalized string comparison for title/ID; if flakiness appears, consider comparing a specific known `nasa_id` from the API response instead of assuming order parity. |
