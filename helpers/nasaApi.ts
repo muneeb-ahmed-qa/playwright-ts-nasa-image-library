@@ -36,9 +36,10 @@ export async function nasaSearch(request: APIRequestContext, q:string, options:{
     const response = await request.get(`${NASA_API_BASE}/search`,{
         params:{
             q,
-            media_type,
-            page
-        }
+            ...(media_type !== undefined && {media_type}),
+            ...(page !== undefined && { page }),
+        },
+        
     });
     const body = await response.json() as NasaSearchResponse;
 
